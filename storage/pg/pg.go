@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/ecadlabs/tezos-indexer-api/storage"
-	"github.com/jackc/pgx"
+	"github.com/jackc/pgx/v4"
 )
 
 const (
@@ -14,8 +14,8 @@ const (
 )
 
 type Queryer interface {
-	Query(sql string, args ...interface{}) (*pgx.Rows, error)
-	QueryRow(sql string, args ...interface{}) *pgx.Row
+	Query(ctx context.Context, sql string, args ...interface{}) (pgx.Rows, error)
+	QueryRow(ctx context.Context, sql string, args ...interface{}) pgx.Row
 }
 
 type PostgresStorage struct {
@@ -62,7 +62,7 @@ func (p *PostgresStorage) GetBalanceUpdate(ctx context.Context, address string, 
 	arg = append(arg, limit)
 	idx++
 
-	rows, err := p.DB.Query(query, arg...)
+	rows, err := p.DB.Query(ctx, query, arg...)
 	if err != nil {
 		return nil, err
 	}
