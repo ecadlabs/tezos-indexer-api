@@ -46,7 +46,10 @@ func (h *Handler) GetBalanceUpdate(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	pkh := mux.Vars(r)["pkh"]
 
-	var req getBalanceUpdateRequest
+	req := getBalanceUpdateRequest{
+		Compact: true,
+	}
+
 	if err := schemaDecoder.Decode(&req, r.Form); err != nil {
 		utils.JSONError(w, errors.Wrap(err, errors.CodeBadRequest))
 		return
