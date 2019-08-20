@@ -65,6 +65,7 @@ var (
 	CodeUnauthorized     Code = stdCode("unauthorized")
 	CodeForbidden        Code = stdCode("forbidden")
 	CodeEndpointNotFound Code = stdCode("endpoint_not_found")
+	CodeLimitTooBig      Code = stdCode("limit_too_big")
 )
 
 var httpStatus = map[stdCode]int{
@@ -74,6 +75,7 @@ var httpStatus = map[stdCode]int{
 	CodeForbidden.(stdCode):        http.StatusForbidden,
 	CodeUnauthorized.(stdCode):     http.StatusUnauthorized,
 	CodeEndpointNotFound.(stdCode): http.StatusNotFound,
+	CodeLimitTooBig.(stdCode):      http.StatusBadRequest,
 }
 
 // Some predefined errors

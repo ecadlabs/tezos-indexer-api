@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -11,6 +12,10 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 	log "github.com/sirupsen/logrus"
+)
+
+const (
+	maxLimit = 1000000
 )
 
 type Handler struct {
@@ -52,6 +57,11 @@ func (h *Handler) GetBalanceUpdate(w http.ResponseWriter, r *http.Request) {
 
 	if err := schemaDecoder.Decode(&req, r.Form); err != nil {
 		utils.JSONError(w, errors.Wrap(err, errors.CodeBadRequest))
+		return
+	}
+
+	if req.Limit > maxLimit {
+		utils.JSONError(w, errors.New(fmt.Sprintf("limit = %d exceeds maximum value of %d", req.Limit, maxLimit), errors.CodeLimitTooBig))
 		return
 	}
 
