@@ -4,7 +4,7 @@
 
 _WARNING: This project is in early stage, active development. While we welcome users and feedback, please be warned that this project is a work in progress and users should proceed with caution._
 
-## What is Signatory?
+## What is tezos-indexer-api?
 
 `tezos-indexer-api` is a RESTful API that serves Tezos Blockchain data that has been indexed. This API is useful for efficient access to data such as balance history, or operation history over time.
 
