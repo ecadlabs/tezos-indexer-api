@@ -49,7 +49,7 @@ func (p *PostgresStorage) GetBalanceUpdate(ctx context.Context, address string, 
 		idx++
 	}
 
-	query += " ORDER BY level"
+	query += " ORDER BY level DESC"
 
 	if !start.IsZero() {
 		// WHERE condition affects the window frame and the computation of the integral balance value so use a subquery
